@@ -6,6 +6,6 @@ var app = builder.Build();
 
 app.MapControllers();
 
-app.MapGet("/api/ping", () => "pong");
+app.MapGet("/api/ping", () => "Success");
 
 app.Run();
