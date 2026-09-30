@@ -1,3 +1,5 @@
+[![.NET](https://github.com/mrzammit/dotnet-practice/actions/workflows/dotnet.yml/badge.svg)](https://github.com/mrzammit/dotnet-practice/actions/workflows/dotnet.yml)
+
 # .NET Practice
 
 A place to refresh my C# and .NET development skills and explore new ones through hands-on experimentation.
