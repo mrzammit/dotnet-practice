@@ -14,7 +14,7 @@ public class ItemsEndpointTests
     }
 
     [Fact]
-    public async Task Get_returns_ok()
+    public async Task Get_items_returns_ok()
     {
         // Arrange
         using var client = _factory.CreateClient(

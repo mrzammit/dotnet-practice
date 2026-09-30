@@ -14,7 +14,7 @@ public class GeneralEndpointTests
     }
 
     [Fact]
-    public async Task Ping_returns_Ok_pong()
+    public async Task Get_ping_returns_pong()
     {
         // Arrange
         using var client = _factory.CreateClient(

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Practice.Api
 {
