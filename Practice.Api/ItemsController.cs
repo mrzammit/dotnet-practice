@@ -9,7 +9,7 @@ namespace Practice.Api
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            return Ok(Array.Empty<object>());
         }
 
     }
