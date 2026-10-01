@@ -62,6 +62,17 @@ public class ItemsEndpointTests
     }
 
     [Fact]
+    public async Task Get_item_by_id_when_missing_returns_not_found()
+    {
+        using var client = _factory.CreateClient();
+
+        using var response =
+            await client.GetAsync($"/api/items/{Guid.NewGuid()}");
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    [Fact]
     public async Task Post_item_returns_created_item()
     {
         var expectedTitle = "Practice TDD";
