@@ -73,6 +73,17 @@ public class ItemsEndpointTests
     }
 
     [Fact]
+    public async Task Post_item_with_whitespace_title_returns_bad_request()
+    {
+        using var client = _factory.CreateClient();
+        var request = new { title = "   " };
+
+        using var response = await client.PostAsJsonAsync("/api/items", request);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task Post_item_returns_created_item()
     {
         var expectedTitle = "Practice TDD";

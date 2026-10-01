@@ -34,6 +34,11 @@ namespace Practice.Api
         [HttpPost]
         public IActionResult Create(CreateItemRequest request)
         {
+            if (string.IsNullOrWhiteSpace(request.Title))
+            {
+                return BadRequest("Title is required.");
+            }
+
             var item = _repository.Add(request.Title);
             return Created($"/api/items/{item.Id}", item);
         }
