@@ -20,6 +20,17 @@ namespace Practice.Api
             return Ok(_repository.GetAll());
         }
 
+        [HttpGet("{id:guid}")]
+        public IActionResult Get(Guid id)
+        {
+            var item = _repository.Get(id);
+            if(item is null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
+        }
+
         [HttpPost]
         public IActionResult Create(CreateItemRequest request)
         {

@@ -17,5 +17,10 @@ namespace Practice.Api.Repositories
         {
             return _items.ToArray();
         }
+
+        public Item? Get(Guid id)
+        {
+            return _items.SingleOrDefault(s => s.Id == id);
+        }
     }
 }

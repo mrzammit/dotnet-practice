@@ -6,3 +6,12 @@ GET {{Practice.Api_HostAddress}}/api/items
 
 ###
 GET {{Practice.Api_HostAddress}}/api/ping
+
+POST {{Practice.Api_HostAddress}}/api/items
+Content-Type: application/json
+
+{
+  //CreateItemRequest
+}
+
+###

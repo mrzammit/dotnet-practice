@@ -39,6 +39,29 @@ public class ItemsEndpointTests
     }
 
     [Fact]
+    public async Task Get_item_by_id_returns_created_item()
+    {
+        using var client = _factory.CreateClient();
+
+        using var postResponse = await client.PostAsJsonAsync("/api/items", new { title = "Find This Item" });
+
+        Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
+
+        var createdItem = await postResponse.Content.ReadFromJsonAsync<CreateItemResponse>();
+
+        Assert.NotNull(createdItem);
+
+        using var getResponse = await client.GetAsync($"/api/items/{createdItem.Id}");
+
+        Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
+
+        var retrievedItems = await getResponse.Content.ReadFromJsonAsync<CreateItemResponse>();
+
+        Assert.NotNull(retrievedItems);
+        Assert.Equal(createdItem, retrievedItems);
+    }
+
+    [Fact]
     public async Task Post_item_returns_created_item()
     {
         var expectedTitle = "Practice TDD";
