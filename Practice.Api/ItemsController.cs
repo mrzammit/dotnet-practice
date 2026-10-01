@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Practice.Api.Models;
 
 namespace Practice.Api
 {
@@ -6,6 +7,8 @@ namespace Practice.Api
     [ApiController]
     public class ItemsController : ControllerBase
     {
+        private static readonly List<Item> Items = new();
+
         [HttpGet]
         public IActionResult Get()
         {
@@ -15,14 +18,9 @@ namespace Practice.Api
         [HttpPost]
         public IActionResult Create(CreateItemRequest request)
         {
-            var item = new
-            {
-                Id = Guid.NewGuid(),
-                Title = request.Title,
-                IsComplete = false
-            };
-
-            return StatusCode(StatusCodes.Status201Created, item);
+            var item = new Item(Guid.NewGuid(), request.Title, false);
+            Items.Add(item);
+            return Created($"api/items/{item.Id}", item);
         }
 
     }

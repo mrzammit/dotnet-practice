@@ -39,7 +39,7 @@ public class ItemsEndpointTests
     }
 
     [Fact]
-    public async Task Post_items_returns_created_item()
+    public async Task Post_item_returns_created_item()
     {
         var expectedTitle = "Practice TDD";
 
@@ -55,8 +55,38 @@ public class ItemsEndpointTests
         Assert.NotNull(item);
         Assert.NotEqual(Guid.Empty, item.Id);
         Assert.Equal(expectedTitle, item.Title);
-        Assert.False(item.isComplete);
+        Assert.False(item.IsComplete);
     }
 
-    public sealed record CreateItemResponse(Guid Id, string Title, bool isComplete);
+    [Fact]
+    public async Task Post_items_then_get_items_returns_created_item()
+    {
+        var expectedTitle = "Practice TDD";
+
+        using var client = _factory.CreateClient();
+        var postRequest = new { title = expectedTitle };
+
+        using var postResponse = await client.PostAsJsonAsync("/api/items", postRequest);
+
+        Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
+
+        var createdItem = await postResponse.Content.ReadFromJsonAsync<CreateItemResponse>();
+
+        Assert.NotNull(createdItem);
+
+        using var getResponse = await client.GetAsync("/api/items");
+
+        Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
+
+        var items = await getResponse.Content.ReadFromJsonAsync<List<CreateItemResponse>>();
+
+        Assert.NotNull(items);
+
+        var retrievedItem = Assert.Single(items, item => item.Id == createdItem.Id);
+
+        Assert.Equal(createdItem.Title, retrievedItem.Title);
+        Assert.Equal(createdItem.IsComplete, retrievedItem.IsComplete);
+    }
+
+    public sealed record CreateItemResponse(Guid Id, string Title, bool IsComplete);
 }
