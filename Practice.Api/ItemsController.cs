@@ -12,7 +12,7 @@ namespace Practice.Api
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Array.Empty<object>());
+            return Ok(Items);
         }
 
         [HttpPost]
