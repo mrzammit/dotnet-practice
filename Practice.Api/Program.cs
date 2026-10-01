@@ -1,4 +1,4 @@
-using Practice.Api.Models;
+using Practice.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

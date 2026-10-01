@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Practice.Api.Models;
+using Practice.Api.Repositories;
 
 namespace Practice.Api
 {
@@ -24,7 +24,7 @@ namespace Practice.Api
         public IActionResult Create(CreateItemRequest request)
         {
             var item = _repository.Add(request.Title);
-            return Created($"api/items/{item.Id}", item);
+            return Created($"/api/items/{item.Id}", item);
         }
 
     }
