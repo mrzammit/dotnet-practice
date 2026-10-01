@@ -7,19 +7,23 @@ namespace Practice.Api
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        private static readonly List<Item> Items = new();
+        private readonly ItemRepository _repository;
+
+        public ItemsController(ItemRepository repository)
+        {
+            _repository = repository;
+        }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Items);
+            return Ok(_repository.GetAll());
         }
 
         [HttpPost]
         public IActionResult Create(CreateItemRequest request)
         {
-            var item = new Item(Guid.NewGuid(), request.Title, false);
-            Items.Add(item);
+            var item = _repository.Add(request.Title);
             return Created($"api/items/{item.Id}", item);
         }
 

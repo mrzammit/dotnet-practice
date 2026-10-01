@@ -5,13 +5,13 @@ using System.Net.Http.Json;
 namespace Practice.Api.Tests;
 
 public class ItemsEndpointTests
-    : IClassFixture<WebApplicationFactory<Program>>
+    : IDisposable
 {
-    private readonly WebApplicationFactory<Program> _factory;
+    private readonly WebApplicationFactory<Program> _factory = new();
 
-    public ItemsEndpointTests(WebApplicationFactory<Program> factory)
+    public void Dispose()
     {
-        _factory = factory;
+        _factory.Dispose();
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class ItemsEndpointTests
     }
 
     [Fact]
-    public async Task Get_items_when_empty_returns_enpty_json_array()
+    public async Task Get_items_when_empty_returns_empty_json_array()
     {
         using var client = _factory.CreateClient();
 
